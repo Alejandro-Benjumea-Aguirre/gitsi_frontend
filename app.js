@@ -49,14 +49,20 @@ document.getElementById('btnJoin').addEventListener('click', async () => {
 
         const data = await response.json();
 
-        iniciarJitsi(data);
+        console.log(data);
+
+        iniciarJitsi(data.body);
 
     } catch (error) {
         console.error('Error obteniendo token', error);
     }
 });
 
-function iniciarJitsi({ token, roomName, url }) {
+function iniciarJitsi(data) {
+
+    const url = data.meetingUrl;
+    const roomName = data.meeting.roomName
+    const token = data.token;
 
     if (jitsiApi) {
         jitsiApi.dispose();
